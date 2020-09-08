@@ -3,12 +3,14 @@ import Header from './Header';
 import Search from './Search';
 import Results from './Results';
 import Nominations from './Nominations';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 
 function App() {
 
   const [movieTitle, setMovieTitle] = useState("");
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState([]);
+  const [nominations, setNomination] = useState([]);
+
 
   function searchQuery(event) {
     const value = event.target.value
@@ -20,8 +22,8 @@ function App() {
       return (<ul>
         {searchResults.map(movie => (
           <li key={movie.imdbID}>
-          <img src={movie.Poster} alt="moviePoster" width="65" height="65"/>
-          {movie.Title} {movie.Year}
+          <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
+          {movie.Title} {movie.Year} <br></br><Button onClick={(e) => addNomination(e)}>Add To Nominations </Button>
           </li>
         ))}
         </ul>)
@@ -31,6 +33,10 @@ function App() {
           return  (<p>Enter Search Term</p>)
         }
       }
+
+  function addNomination(e) {
+    console.log(e.target.parentElement)
+  }
 
 
   useEffect(() => {
@@ -51,7 +57,7 @@ function App() {
           <Results renderResults={renderResults}/>
         </Col>
         <Col>
-          <Nominations />
+          <Nominations/>
         </Col>
       </Row>
     </Container>
