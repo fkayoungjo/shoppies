@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+      font-family: "Hoefler Text 4r",Baskerville,"Baskerville Old Face","Hoefler Text","Times New Roman",serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.title {
+  border-bottom: 3px solid black;
+}
+
+#home {
+  border: 1px solid black;
+}
+
+ul {
+    list-style-type: none;
+}
