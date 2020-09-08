@@ -21,3 +21,8 @@ code {
 ul {
     list-style-type: none;
 }
+
+.custom-modal-style {
+width: 75px;
+height: 100px;
+}

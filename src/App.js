@@ -3,14 +3,22 @@ import Header from './Header';
 import Search from './Search';
 import Results from './Results';
 import Nominations from './Nominations';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
-function App() {
+function App(props) {
 
   const [movieTitle, setMovieTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [nominations, setNominations] = useState([]);
-  const [buttonDisabled, setButtonDisabled] = useState(false)
+
+  const {
+    buttonLabel,
+    className
+  } = props;
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
 
 
   function searchQuery(event) {
@@ -18,13 +26,24 @@ function App() {
           setMovieTitle(value)
     }
 
+    function buttonClick(e) {
+      addNomination(e)
+      toggle()
+      }
+
   function renderResults() {
     if( searchResults !== undefined) {
       return (<ul>
         {searchResults.map(movie => (
           <li key={movie.imdbID} data-index={movie.imdbID}>
           <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
-          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => addNomination(e)} disabled={buttonDisabled}>Add To Nominations </Button>
+          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br>
+          <Button id={movie.imdbID}onClick={(e) => buttonClick(e)}>Nominate </Button>
+          <Modal isOpen={modal} toggle={toggle} >
+        <ModalBody>
+          Nomination Added! Select {5 - nominations.length} more
+        </ModalBody>
+      </Modal>
           </li>
         ))}
         </ul>)
@@ -39,18 +58,20 @@ function App() {
     for(let i = 0; i <searchResults.length; i++ ) {
       if(index === searchResults[i].imdbID) {
         setNominations(nominations => [...nominations, searchResults[i]])
+        e.target.setAttribute('disabled', true)
       }
     }
-    setButtonDisabled(!buttonDisabled)
   }else {
 
-    }
+  }
     renderNominations()
   }
 
   function removeNomination(e) {
     let index = e.target.parentNode.getAttribute('data-index')
     setNominations(nominations => nominations.filter(movie => movie.imdbID !== index))
+    let button = document.getElementById(index)
+    button.disabled = false
   }
 
 
@@ -60,7 +81,7 @@ function App() {
         {nominations.map(movie => (
           <li key={movie.imdbID} data-index={movie.imdbID}>
           <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
-          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => removeNomination(e)}>Remove Nomination </Button>
+          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => removeNomination(e)}>Remove </Button>
           </li>
         ))}
         </ul>)
@@ -83,7 +104,7 @@ function App() {
       <Search searchQuery= {searchQuery}/>
       <Row>
         <Col>
-          <Results renderResults={renderResults}/>
+          <Results renderResults={renderResults} movieTitle={movieTitle}/>
         </Col>
         <Col>
           <Nominations renderNominations={renderNominations}/>
