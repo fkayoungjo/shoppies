@@ -6,7 +6,6 @@ function Nominations(props) {
   return (
     <div>
       <Container>
-        <p>Nominations</p>
         {props.renderNominations()}
       </Container>
     </div>

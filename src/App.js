@@ -3,7 +3,7 @@ import Header from './Header';
 import Search from './Search';
 import Results from './Results';
 import Nominations from './Nominations';
-import { Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import { Container, Row, Col, Button,} from 'reactstrap';
 
 function App(props) {
 
@@ -11,10 +11,7 @@ function App(props) {
   const [searchResults, setSearchResults] = useState([]);
   const [nominations, setNominations] = useState([]);
 
-  const {
-    buttonLabel,
-    className
-  } = props;
+
 
   const [modal, setModal] = useState(false);
 
@@ -39,11 +36,6 @@ function App(props) {
           <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
           <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br>
           <Button id={movie.imdbID}onClick={(e) => buttonClick(e)}>Nominate </Button>
-          <Modal isOpen={modal} toggle={toggle} >
-        <ModalBody>
-          Nomination Added! Select {5 - nominations.length} more
-        </ModalBody>
-      </Modal>
           </li>
         ))}
         </ul>)
@@ -61,8 +53,6 @@ function App(props) {
         e.target.setAttribute('disabled', true)
       }
     }
-  }else {
-
   }
     renderNominations()
   }
@@ -76,15 +66,45 @@ function App(props) {
 
 
   function renderNominations() {
-    if(nominations !== []) {
-      return (<ul>
+    if(nominations !== [] && nominations.length !== 5) {
+      return (
+      <div>
+      <span>
+      Nominations
+      </span>
+      <ul>
+      {nominations.map(movie => (
+        <li key={movie.imdbID} data-index={movie.imdbID}>
+        <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
+        <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => removeNomination(e)}>Remove </Button>
+        </li>
+      ))}
+      </ul>
+      </div>
+      )}else if (nominations.length === 5) {
+        return (
+        <div>
+        <span>
+        Remove Nomination to Add Another
+        </span>
+        <ul>
         {nominations.map(movie => (
           <li key={movie.imdbID} data-index={movie.imdbID}>
           <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
           <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => removeNomination(e)}>Remove </Button>
           </li>
         ))}
-        </ul>)
+        </ul>
+        </div>
+      )}else {
+        return (
+        <div>
+        <span>
+        Nominations
+        </span>
+        </div>
+        )
+
       }
       }
 
