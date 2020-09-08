@@ -9,7 +9,8 @@ function App() {
 
   const [movieTitle, setMovieTitle] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [nominations, setNomination] = useState([]);
+  const [nominations, setNominations] = useState([]);
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
 
   function searchQuery(event) {
@@ -21,22 +22,50 @@ function App() {
     if( searchResults !== undefined) {
       return (<ul>
         {searchResults.map(movie => (
-          <li key={movie.imdbID}>
+          <li key={movie.imdbID} data-index={movie.imdbID}>
           <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
-          {movie.Title} {movie.Year} <br></br><Button onClick={(e) => addNomination(e)}>Add To Nominations </Button>
+          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => addNomination(e)} disabled={buttonDisabled}>Add To Nominations </Button>
           </li>
         ))}
         </ul>)
-      } else if (movieTitle.length !== 0 ) {
+      } else if (movieTitle.length > 2 ) {
         return  (<p>No Results Found</p>)
-      }else {
-          return  (<p>Enter Search Term</p>)
-        }
+      }
       }
 
   function addNomination(e) {
-    console.log(e.target.parentElement)
+    if(nominations.length < 5) {
+    let index = e.target.parentNode.getAttribute('data-index')
+    for(let i = 0; i <searchResults.length; i++ ) {
+      if(index === searchResults[i].imdbID) {
+        setNominations(nominations => [...nominations, searchResults[i]])
+      }
+    }
+    setButtonDisabled(!buttonDisabled)
+  }else {
+
+    }
+    renderNominations()
   }
+
+  function removeNomination(e) {
+    let index = e.target.parentNode.getAttribute('data-index')
+    setNominations(nominations => nominations.filter(movie => movie.imdbID !== index))
+  }
+
+
+  function renderNominations() {
+    if(nominations !== []) {
+      return (<ul>
+        {nominations.map(movie => (
+          <li key={movie.imdbID} data-index={movie.imdbID}>
+          <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
+          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => removeNomination(e)}>Remove Nomination </Button>
+          </li>
+        ))}
+        </ul>)
+      }
+      }
 
 
   useEffect(() => {
@@ -57,7 +86,7 @@ function App() {
           <Results renderResults={renderResults}/>
         </Col>
         <Col>
-          <Nominations/>
+          <Nominations renderNominations={renderNominations}/>
         </Col>
       </Row>
     </Container>

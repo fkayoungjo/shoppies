@@ -7,6 +7,7 @@ function Nominations(props) {
     <div>
       <Container>
         <p>Nominations</p>
+        {props.renderNominations()}
       </Container>
     </div>
   );

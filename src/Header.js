@@ -5,7 +5,7 @@ import shopify from './shopify.png';
 function Header() {
   return (
     <div>
-    <Container className = 'title'>
+    <Container className = 'banner'>
       <Row>
         <Col xs="3">
           <img src={shopify} alt="shopify" width="200" height="200"/>
