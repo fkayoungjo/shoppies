@@ -12,6 +12,7 @@ code {
 
 .banner {
   border-bottom: 3px solid black;
+  align-content: center;
 }
 
 #home {
@@ -20,4 +21,12 @@ code {
 
 ul {
     list-style-type: none;
+}
+
+.results{
+  align-content: center;
+}
+
+.name{
+  padding: 10px;
 }

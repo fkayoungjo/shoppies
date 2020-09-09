@@ -6,7 +6,7 @@ function Header() {
   return (
     <div>
     <Container className = 'banner'>
-      <Row>
+      <Row className= 'name'>
         <Col xs="3">
           <img src={shopify} alt="shopify" width="200" height="200"/>
           </Col>

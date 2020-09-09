@@ -3,7 +3,7 @@ import Header from './Header';
 import Search from './Search';
 import Results from './Results';
 import Nominations from './Nominations';
-import { Container, Row, Col, Button,} from 'reactstrap';
+import { Container, Row, Col, Button, Card, CardImg, CardHeader} from 'reactstrap';
 
 function App(props) {
 
@@ -21,22 +21,27 @@ function App(props) {
   function renderResults() {
     if( searchResults !== undefined) {
       return (<ul>
+        <Row xs="3">
         {searchResults.map(movie => (
-          <li key={movie.imdbID} data-index={movie.imdbID}>
-          <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
-          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br>
+          <li  data-index={movie.imdbID}>
+          <Card >
+          <CardHeader tag="h6"id={movie.Title}>{movie.Title}</CardHeader>
+          <CardHeader id={movie.Year}>{movie.Year}</CardHeader>
+          <CardImg top width="100%" src={movie.Poster} alt="moviePoster"/>
           <Button id={movie.imdbID}onClick={(e) => addNomination(e)}>Nominate </Button>
+          </Card>
           </li>
         ))}
+        </Row>
         </ul>)
       } else if (movieTitle.length > 2 ) {
-        return  (<p>No Results Found</p>)
+        return  (<h4>No Results Found</h4>)
       }
       }
 
   function addNomination(e) {
     if(nominations.length < 5) {
-    let index = e.target.parentNode.getAttribute('data-index')
+    let index = e.target.parentNode.parentNode.getAttribute('data-index')
     for(let i = 0; i <searchResults.length; i++ ) {
       if(index === searchResults[i].imdbID) {
         setNominations(nominations => [...nominations, searchResults[i]])
@@ -48,7 +53,7 @@ function App(props) {
   }
 
   function removeNomination(e) {
-    let index = e.target.parentNode.getAttribute('data-index')
+    let index = e.target.parentNode.parentNode.getAttribute('data-index')
     setNominations(nominations => nominations.filter(movie => movie.imdbID !== index))
     let button = document.getElementById(index)
     button.disabled = false
@@ -59,39 +64,45 @@ function App(props) {
     if(nominations !== [] && nominations.length !== 5) {
       return (
       <div>
-      <span>
-      Nominations
-      </span>
+      <h4> Nominations </h4>
       <ul>
+      <Row xs="3">
       {nominations.map(movie => (
         <li key={movie.imdbID} data-index={movie.imdbID}>
-        <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
-        <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => removeNomination(e)}>Remove </Button>
+        <Card >
+        <CardHeader tag="h6"id={movie.Title}>{movie.Title}</CardHeader>
+        <CardHeader id={movie.Year}>{movie.Year}</CardHeader>
+        <CardImg top width="100%" src={movie.Poster} alt="moviePoster"/>
+        <Button onClick={(e) => removeNomination(e)}>Remove </Button>
+         </Card>
         </li>
       ))}
+      </Row>
       </ul>
       </div>
       )}else if (nominations.length === 5) {
         return (
-        <div>
-        <span>
-        Remove Nomination to Add Another
-        </span>
-        <ul>
-        {nominations.map(movie => (
-          <li key={movie.imdbID} data-index={movie.imdbID}>
-          <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
-          <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br><Button onClick={(e) => removeNomination(e)}>Remove </Button>
-          </li>
-        ))}
-        </ul>
-        </div>
+          <div>
+          <h4> Remove Nomination to Add Another </h4>
+          <ul>
+          <Row xs="3">
+          {nominations.map(movie => (
+            <li key={movie.imdbID} data-index={movie.imdbID}>
+            <Card >
+            <CardHeader tag="h6"id={movie.Title}>{movie.Title}</CardHeader>
+            <CardHeader id={movie.Year}>{movie.Year}</CardHeader>
+            <CardImg top width="100%" src={movie.Poster} alt="moviePoster"/>
+            <Button onClick={(e) => removeNomination(e)}>Remove </Button>
+             </Card>
+            </li>
+          ))}
+          </Row>
+          </ul>
+          </div>
       )}else {
         return (
         <div>
-        <span>
-        Nominations
-        </span>
+        <h4> Nominations </h4>
         </div>
         )
 

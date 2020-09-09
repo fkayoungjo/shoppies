@@ -7,8 +7,8 @@ function Results(props) {
   if(props.movieTitle.length >= 3) {
   return (
     <div>
-      <Container>
-        <p>Results for "{props.movieTitle}"</p>
+      <Container >
+        <h4>Results for "{props.movieTitle}"</h4>
         {props.renderResults()}
       </Container>
     </div>
@@ -16,7 +16,7 @@ function Results(props) {
 }else {
   return (<div>
     <Container>
-      <p>Results</p>
+      <h4>Results</h4>
       {props.renderResults()}
     </Container>
   </div>)
