@@ -47,6 +47,7 @@ function App(props) {
         setNominations(nominations => [...nominations, searchResults[i]])
         e.target.setAttribute('disabled', true)
       }
+        localStorage.setItem("choices", JSON.stringify(nominations))
     }
   }
     renderNominations()
@@ -111,6 +112,12 @@ function App(props) {
         )
     }, [movieTitle])
 
+    useEffect(() => {
+      if (localStorage.getItem("choices") !== [null]){
+      console.log(localStorage.getItem("choices"))
+      }
+
+    }, [])
 
   return (
     <div>

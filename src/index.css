@@ -19,6 +19,8 @@ code {
 
 #home {
   border: 1px solid black;
+  font: normal 400 36px/1.4 Lato;
+  color: #515357
 }
 
 ul {
