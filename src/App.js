@@ -21,13 +21,13 @@ function App(props) {
   function renderResults() {
     if( searchResults !== undefined) {
       return (<ul>
-        <Row xs="3">
+        <Row xs="3" >
         {searchResults.map(movie => (
-          <li  data-index={movie.imdbID}>
+          <li  key={movie.imdbID} data-index={movie.imdbID}>
           <Card >
           <CardHeader tag="h6"id={movie.Title}>{movie.Title}</CardHeader>
           <CardHeader id={movie.Year}>{movie.Year}</CardHeader>
-          <CardImg top width="100%" src={movie.Poster} alt="moviePoster"/>
+          <CardImg style={{ height:"235px", width:"164px"}} src={movie.Poster} alt="No Movie Image"/>
           <Button id={movie.imdbID}onClick={(e) => addNomination(e)}>Nominate </Button>
           </Card>
           </li>
@@ -56,7 +56,7 @@ function App(props) {
     let index = e.target.parentNode.parentNode.getAttribute('data-index')
     setNominations(nominations => nominations.filter(movie => movie.imdbID !== index))
     let button = document.getElementById(index)
-    button.disabled = false
+    if(button !== null) {button.disabled = false}
   }
 
 
@@ -64,7 +64,7 @@ function App(props) {
     if(nominations !== [] && nominations.length !== 5) {
       return (
       <div>
-      <h4> Nominations </h4>
+      <h4> Select Nominations </h4>
       <ul>
       <Row xs="3">
       {nominations.map(movie => (
@@ -72,7 +72,7 @@ function App(props) {
         <Card >
         <CardHeader tag="h6"id={movie.Title}>{movie.Title}</CardHeader>
         <CardHeader id={movie.Year}>{movie.Year}</CardHeader>
-        <CardImg top width="100%" src={movie.Poster} alt="moviePoster"/>
+        <CardImg style={{ height:"235px", width:"164px"}} src={movie.Poster} alt="moviePoster"/>
         <Button onClick={(e) => removeNomination(e)}>Remove </Button>
          </Card>
         </li>
@@ -91,7 +91,7 @@ function App(props) {
             <Card >
             <CardHeader tag="h6"id={movie.Title}>{movie.Title}</CardHeader>
             <CardHeader id={movie.Year}>{movie.Year}</CardHeader>
-            <CardImg top width="100%" src={movie.Poster} alt="moviePoster"/>
+            <CardImg style={{ height:"235px", width:"164px"}} src={movie.Poster} alt="moviePoster"/>
             <Button onClick={(e) => removeNomination(e)}>Remove </Button>
              </Card>
             </li>
@@ -99,15 +99,9 @@ function App(props) {
           </Row>
           </ul>
           </div>
-      )}else {
-        return (
-        <div>
-        <h4> Nominations </h4>
-        </div>
-        )
+      )}
+      }
 
-      }
-      }
 
 
   useEffect(() => {

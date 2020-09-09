@@ -4,7 +4,7 @@ import { Container } from 'reactstrap';
 
 function Results(props) {
 
-  if(props.movieTitle.length >= 3) {
+  if(props.movieTitle.length >= 1) {
   return (
     <div>
       <Container >
@@ -16,7 +16,7 @@ function Results(props) {
 }else {
   return (<div>
     <Container>
-      <h4>Results</h4>
+      <h4>Search Results</h4>
       {props.renderResults()}
     </Container>
   </div>)
