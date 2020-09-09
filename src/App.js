@@ -12,21 +12,11 @@ function App(props) {
   const [nominations, setNominations] = useState([]);
 
 
-
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => setModal(!modal);
-
-
   function searchQuery(event) {
     const value = event.target.value
           setMovieTitle(value)
     }
 
-    function buttonClick(e) {
-      addNomination(e)
-      toggle()
-      }
 
   function renderResults() {
     if( searchResults !== undefined) {
@@ -35,7 +25,7 @@ function App(props) {
           <li key={movie.imdbID} data-index={movie.imdbID}>
           <img src={movie.Poster} alt="moviePoster" width= "71.7px"    height="106.5px" />
           <span id={movie.Title}>{movie.Title}</span> {movie.Year} <br></br>
-          <Button id={movie.imdbID}onClick={(e) => buttonClick(e)}>Nominate </Button>
+          <Button id={movie.imdbID}onClick={(e) => addNomination(e)}>Nominate </Button>
           </li>
         ))}
         </ul>)
