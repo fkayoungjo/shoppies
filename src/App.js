@@ -105,7 +105,7 @@ function App(props) {
 
 
   useEffect(() => {
-    fetch(`http://omdbapi.com/?apikey=15257de9&type=movie&s=${movieTitle}`).then(resp => resp)
+    fetch(`https://omdbapi.com/?apikey=15257de9&type=movie&s=${movieTitle}`).then(resp => resp)
     .then(resp => resp.json()).then(
       results => setSearchResults(results.Search)
         )
@@ -120,7 +120,7 @@ function App(props) {
 
     }, [])
 
-    
+
 
 
 
