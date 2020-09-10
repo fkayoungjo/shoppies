@@ -50,6 +50,8 @@ function App(props) {
     }
   }
     renderNominations()
+    let choices = JSON.parse(localStorage.getItem("choices"))
+    console.log(choices)
   }
 
   function removeNomination(e) {
@@ -119,6 +121,10 @@ function App(props) {
       }
 
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem("choices", JSON.stringify(nominations));
+      }, [nominations]);
 
 
 
