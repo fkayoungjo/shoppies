@@ -82,7 +82,7 @@ function App(props) {
       </Row>
       </ul>
       </div>
-      )}else if (nominations.length === 5) {
+      )}else if (nominations !== null && nominations.length === 5) {
         return (
           <div>
           <h5> You Have Selected 5 Movies. Remove Movie to Add Another </h5>
