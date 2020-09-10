@@ -47,7 +47,6 @@ function App(props) {
         setNominations(nominations => [...nominations, searchResults[i]])
         e.target.setAttribute('disabled', true)
       }
-        localStorage.setItem("choices", JSON.stringify(nominations))
     }
   }
     renderNominations()
@@ -65,7 +64,7 @@ function App(props) {
     if(nominations !== [] && nominations.length !== 5) {
       return (
       <div>
-      <h4> Select Nominations </h4>
+      <h5> Select Nominations </h5>
       <ul>
       <Row xs="3">
       {nominations.map(movie => (
@@ -84,7 +83,7 @@ function App(props) {
       )}else if (nominations.length === 5) {
         return (
           <div>
-          <h4> Remove Nomination to Add Another </h4>
+          <h5> You Have Selected 5 Movies. Remove Movie to Add Another </h5>
           <ul>
           <Row xs="3">
           {nominations.map(movie => (
@@ -114,10 +113,18 @@ function App(props) {
 
     useEffect(() => {
       if (localStorage.getItem("choices") !== [null]){
-      console.log(localStorage.getItem("choices"))
+      let choices = JSON.parse(localStorage.getItem("choices"))
+      console.log(choices)
+      setNominations(choices)
       }
 
     }, [])
+
+    
+
+
+
+
 
   return (
     <div>

@@ -8,7 +8,7 @@ function Results(props) {
   return (
     <div>
       <Container >
-        <h4>Results for "{props.movieTitle}"</h4>
+        <h5>Results for "{props.movieTitle}"</h5>
         {props.renderResults()}
       </Container>
     </div>
@@ -16,7 +16,7 @@ function Results(props) {
 }else {
   return (<div>
     <Container>
-      <h4>Search Results</h4>
+      <h5>Search Results</h5>
       {props.renderResults()}
     </Container>
   </div>)
