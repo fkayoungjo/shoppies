@@ -40,7 +40,7 @@ function App(props) {
       }
 
   function addNomination(e) {
-    if(nominations.length < 5) {
+    if(nominations !== null && nominations.length < 5) {
     let index = e.target.parentNode.parentNode.getAttribute('data-index')
     for(let i = 0; i <searchResults.length; i++ ) {
       if(index === searchResults[i].imdbID) {
