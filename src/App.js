@@ -40,7 +40,7 @@ function App(props) {
       }
 
   function addNomination(e) {
-    if(nominations.length < 5) {
+    if(nominations !== null && nominations.length < 5) {
     let index = e.target.parentNode.parentNode.getAttribute('data-index')
     for(let i = 0; i <searchResults.length; i++ ) {
       if(index === searchResults[i].imdbID) {
@@ -63,7 +63,7 @@ function App(props) {
 
 
   function renderNominations() {
-    if(nominations !== [] && nominations.length !== 5) {
+    if(nominations !== null && nominations.length !== 5) {
       return (
       <div>
       <h5> Select Nominations </h5>
@@ -82,7 +82,7 @@ function App(props) {
       </Row>
       </ul>
       </div>
-      )}else if (nominations.length === 5) {
+      )}else if (nominations !== null && nominations.length === 5) {
         return (
           <div>
           <h5> You Have Selected 5 Movies. Remove Movie to Add Another </h5>
@@ -101,6 +101,10 @@ function App(props) {
           </Row>
           </ul>
           </div>
+      )}else {
+        return (
+        <div>
+        </div>
       )}
       }
 
